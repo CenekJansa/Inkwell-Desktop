@@ -1,0 +1,14 @@
+[package]
+name = "inkwell-app-core"
+description = "Platform-independent Inkwell request state machine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+inkwell-protocol = { path = "../protocol" }
+thiserror.workspace = true
+
+[lints]
+workspace = true

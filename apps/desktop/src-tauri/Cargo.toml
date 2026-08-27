@@ -1,0 +1,20 @@
+[package]
+name = "inkwell-desktop"
+description = "Inkwell Desktop Tauri application"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[lib]
+name = "inkwell_desktop_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.4", features = [] }
+
+[dependencies]
+tauri = { version = "2.8", features = [] }
+
+[lints]
+workspace = true

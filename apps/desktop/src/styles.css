@@ -1,0 +1,108 @@
+:root {
+  color: #211d18;
+  background: #efe9df;
+  font-family: Georgia, "Times New Roman", serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button {
+  border: 1px solid #211d18;
+  border-radius: 2px;
+  padding: 0.75rem 2rem;
+  color: #fffaf1;
+  background: #211d18;
+  font:
+    600 0.875rem/1 system-ui,
+    sans-serif;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #483e33;
+}
+
+button:focus-visible {
+  outline: 3px solid #b3633b;
+  outline-offset: 3px;
+}
+
+.waiting-screen {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 2rem;
+  background:
+    linear-gradient(90deg, rgb(69 51 35 / 5%) 1px, transparent 1px) 0 0 / 32px
+      32px,
+    #efe9df;
+}
+
+.waiting-card {
+  width: min(38rem, 100%);
+  padding: clamp(2rem, 7vw, 5rem);
+  border: 1px solid #c9bda9;
+  text-align: center;
+  background: #fffaf1;
+  box-shadow: 0 24px 60px rgb(58 44 29 / 12%);
+}
+
+.product-name {
+  margin: 0 0 2rem;
+  color: #765e48;
+  font:
+    700 0.75rem/1 system-ui,
+    sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.seal {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 auto 1.75rem;
+  border: 2px solid #963f2b;
+  border-radius: 50%;
+  place-items: center;
+  color: #963f2b;
+  font-size: 1.75rem;
+  font-style: italic;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.waiting-copy {
+  max-width: 29rem;
+  margin: 1.5rem auto 2rem;
+  color: #61584e;
+  font:
+    1rem/1.7 system-ui,
+    sans-serif;
+}
+
+@media (max-width: 480px) {
+  .waiting-screen {
+    padding: 1rem;
+  }
+
+  .waiting-card {
+    padding: 2.5rem 1.5rem;
+  }
+}

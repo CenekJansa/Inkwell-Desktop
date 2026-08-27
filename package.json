@@ -1,0 +1,20 @@
+{
+  "name": "inkwell-desktop-workspace",
+  "private": true,
+  "workspaces": [
+    "apps/desktop"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=@inkwell/desktop",
+    "check": "npm run check --workspace=@inkwell/desktop",
+    "desktop:build": "npm run tauri:build --workspace=@inkwell/desktop",
+    "dev": "npm run tauri:dev --workspace=@inkwell/desktop",
+    "format": "npm run format --workspace=@inkwell/desktop",
+    "lint": "npm run lint --workspace=@inkwell/desktop",
+    "test": "npm run test --workspace=@inkwell/desktop"
+  },
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10"
+  }
+}

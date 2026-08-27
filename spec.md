@@ -44,7 +44,7 @@ The desktop application's primary responsibilities are:
 - Operating system: Microsoft Windows 11.
 - Desktop framework: Tauri.
 - Backend and native integration: Rust.
-- Frontend: Tauri webview-based user interface. The specific frontend framework is not yet defined.
+- Frontend: Vue 3 with TypeScript in a Tauri webview-based user interface.
 - Browser integration: Google Chrome native messaging through an installed native messaging host manifest.
 - Initial architecture: Windows 11 x64.
 
