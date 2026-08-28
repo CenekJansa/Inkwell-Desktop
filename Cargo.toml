@@ -5,6 +5,7 @@ members = [
   "bins/pdf-renderer",
   "crates/app-core",
   "crates/cms-signing",
+  "crates/deployment-config",
   "crates/local-ipc",
   "crates/protocol",
   "crates/request-validation",

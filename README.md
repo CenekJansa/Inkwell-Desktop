@@ -14,7 +14,7 @@ installation are tracked in [`docs/implementation-backlog.md`](docs/implementati
 
 ## Prerequisites
 
-- Node.js 22.12 or newer
+- Node.js 22.13 or newer
 - npm 10 or newer
 - Rust stable (installed automatically from `rust-toolchain.toml` by rustup)
 - Windows 11 x64 with the Microsoft C++ Build Tools for desktop development

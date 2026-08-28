@@ -8,7 +8,7 @@
 
 ## Commands
 
-- Use Node 22.13+ with npm 10+: the repository declares Node 22.12+, but the locked Vite version requires at least 22.13 on the Node 22 line. Install with `npm install`; fetch Rust dependencies with `cargo fetch`.
+- Use Node 22.13+ with npm 10+. Install with `npm install`; fetch Rust dependencies with `cargo fetch`.
 - `npm run dev` starts the full Tauri app. For browser-only Vue work, use `npm run dev --workspace=@inkwell/desktop` (Vite is fixed to `127.0.0.1:1420`).
 - `npm run check` runs frontend lint/format checks, Vitest, typechecking, and the Vite build in that order. Run one frontend test with `npm run test --workspace=@inkwell/desktop -- src/App.test.ts`.
 - Rust verification is `cargo fmt --all --check`, then `cargo clippy --locked --workspace --all-targets -- -D warnings`, then `cargo test --locked --workspace`. Focus a crate with `cargo test --locked -p inkwell-app-core` (substitute its Cargo package name).

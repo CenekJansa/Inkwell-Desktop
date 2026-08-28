@@ -2,7 +2,7 @@
 
 ## Toolchain
 
-Install Node.js 22.12 or newer, npm 10 or newer, and rustup. The checked-in Rust
+Install Node.js 22.13 or newer, npm 10 or newer, and rustup. The checked-in Rust
 toolchain file pins Rust and installs the Windows x64 MSVC target.
 
 On Windows, also install the Microsoft Visual Studio Build Tools with the
@@ -17,6 +17,28 @@ cargo fetch
 
 Do not add production extension identifiers, code-signing credentials, private
 test certificates, or document fixtures containing real data to the repository.
+
+## Deployment configuration
+
+Local builds use the checked-in native messaging host name
+`com.inkwell.desktop.dev` and the stable unpacked-extension ID
+`bigiacfmnlcbgamdkjepnkabampiiape`. The public key that produces this extension
+ID is stored in `extensions/test-extension/development-public-key.base64`; it is
+public identity material, not a signing credential.
+
+The `inkwell-deployment-config` crate validates and embeds these values at build
+time. Build automation may override them with:
+
+| Variable | Values |
+| --- | --- |
+| `INKWELL_DEPLOYMENT_PROFILE` | `development` (default) or `production` |
+| `INKWELL_NATIVE_HOST_NAME` | A Chrome native messaging host name |
+| `INKWELL_EXTENSION_ID` | A 32-character Chrome extension ID |
+
+A production build must set all three variables and must not reuse either
+development identity. Production values belong in protected CI or release
+configuration, never in source control. Changing any variable causes Cargo to
+rebuild the configuration crate and dependent binaries.
 
 ## Development commands
 

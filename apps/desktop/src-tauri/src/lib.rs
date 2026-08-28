@@ -1,3 +1,5 @@
+pub use inkwell_deployment_config::{DEPLOYMENT_PROFILE, EXTENSION_ID, NATIVE_HOST_NAME};
+
 /// Starts the Inkwell desktop application.
 ///
 /// # Panics

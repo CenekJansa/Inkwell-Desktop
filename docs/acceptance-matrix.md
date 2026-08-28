@@ -5,6 +5,7 @@ links should be added as items are implemented.
 
 | Specification requirement | Backlog coverage | Planned evidence |
 | --- | --- | --- |
+| Build-time deployment identity | M0.4 | Configuration validation and development public-key derivation tests |
 | 7.1 Request intake | M1.1-M1.4, M2.3-M2.5 | Protocol unit tests and native-host integration tests |
 | 7.2 PDF display | M3.1-M3.5 | PDF fixtures, renderer tests, and UI tests |
 | 7.3 Certificate discovery | M4.1-M4.5 | Windows store integration tests and UI tests |

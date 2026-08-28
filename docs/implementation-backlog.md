@@ -8,6 +8,7 @@ of scope.
 ## Status values
 
 - `Foundation`: repository structure exists, but feature behavior is not built.
+- `Complete`: completion criteria are implemented and verified where the current platform permits.
 - `Ready`: dependencies and expected outcome are defined.
 - `Blocked`: requires an earlier item or an explicit proof-of-concept decision.
 
@@ -15,10 +16,10 @@ of scope.
 
 | ID | Status | Work item | Completion criteria |
 | --- | --- | --- | --- |
-| M0.1 | Foundation | Create Rust workspace | Desktop, host, renderer, and shared crates are workspace members with pinned formatting and lint tooling. |
+| M0.1 | Complete | Create Rust workspace | Desktop, host, renderer, and shared crates are workspace members with pinned formatting and lint tooling. |
 | M0.2 | Foundation | Create Vue and Tauri desktop | Vue, TypeScript, Vite, and Tauri build configuration exists; direct launch renders the waiting screen. |
-| M0.3 | Foundation | Establish repository checks | npm formatting, linting, tests, frontend build, Rust formatting, clippy, tests, and Windows CI are configured. |
-| M0.4 | Ready | Define deployment configuration | Development host name and extension ID are injected at build time; production values and credentials remain outside source control. |
+| M0.3 | Complete | Establish repository checks | npm formatting, linting, tests, frontend build, Rust formatting, clippy, tests, and Windows CI are configured. |
+| M0.4 | Complete | Define deployment configuration | Development host name and extension ID are injected at build time; production values and credentials remain outside source control. |
 
 Milestone exit: a clean checkout can run all platform-independent checks, and a
 Windows developer can open the direct-launch application.

@@ -1514,9 +1514,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "inkwell-deployment-config"
+version = "0.1.0"
+dependencies = [
+ "base64 0.22.1",
+ "sha2",
+]
+
+[[package]]
 name = "inkwell-desktop"
 version = "0.1.0"
 dependencies = [
+ "inkwell-deployment-config",
  "tauri",
  "tauri-build",
 ]
@@ -1532,6 +1541,9 @@ dependencies = [
 [[package]]
 name = "inkwell-native-host"
 version = "0.1.0"
+dependencies = [
+ "inkwell-deployment-config",
+]
 
 [[package]]
 name = "inkwell-pdf-renderer"

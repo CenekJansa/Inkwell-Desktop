@@ -24,6 +24,7 @@ channels.
 | `inkwell-local-ipc` | Authenticated current-user IPC | Native messaging framing |
 | `inkwell-windows-certificates` | Store discovery and provider operations | CMS encoding or UI |
 | `inkwell-cms-signing` | Deterministic DER CMS construction | Private-key ownership |
+| `inkwell-deployment-config` | Validated build-time host and extension identity | Registration or credentials |
 | `inkwell-safe-logging` | Metadata-only diagnostics | Sensitive payload values |
 
 Dependencies point inward toward protocol and app-core. As feature milestones
