@@ -26,12 +26,12 @@ Windows developer can open the direct-launch application.
 
 ## M1: Protocol-to-UI walking skeleton
 
-| ID | Depends on | Work item | Completion criteria |
-| --- | --- | --- | --- |
-| M1.1 | M0 | Define protocol models | Version 1 request and all terminal envelopes serialize exactly as specified; all stable error codes are represented and tested. |
-| M1.2 | M1.1 | Implement native messaging framing | Host reads and writes browser-compatible length-prefixed JSON, handles truncation, and never writes diagnostics to stdout. |
-| M1.3 | M1.1 | Implement bounded request validation | Version, type, UUID, origin, name, Base64, decoded sizes, hashes, and PDF header are validated before display. |
-| M1.4 | M1.2, M1.3 | Deliver cancellation walking skeleton | An in-process host-to-UI harness displays origin and document name and returns one valid cancellation response; secure process IPC follows in M2.1. |
+| ID | Status | Depends on | Work item | Completion criteria |
+| --- | --- | --- | --- | --- |
+| M1.1 | Complete | M0 | Define protocol models | Version 1 request and all terminal envelopes serialize exactly as specified; all stable error codes are represented and tested. |
+| M1.2 | Complete | M1.1 | Implement native messaging framing | Host reads and writes browser-compatible length-prefixed JSON, handles truncation, and never writes diagnostics to stdout. |
+| M1.3 | Complete | M1.1 | Implement bounded request validation | Version, type, UUID, origin, name, Base64, decoded sizes, hashes, and PDF header are validated before display. |
+| M1.4 | Complete | M1.2, M1.3 | Deliver cancellation walking skeleton | An in-process host-to-UI harness displays origin and document name and returns one valid cancellation response; secure process IPC follows in M2.1. |
 
 Milestone exit: Chrome-compatible input can cross the host boundary and produce
 a structured terminal response without PDF rendering or signing.

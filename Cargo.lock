@@ -1525,7 +1525,13 @@ dependencies = [
 name = "inkwell-desktop"
 version = "0.1.0"
 dependencies = [
+ "base64 0.22.1",
  "inkwell-deployment-config",
+ "inkwell-native-host",
+ "inkwell-protocol",
+ "serde",
+ "serde_json",
+ "sha2",
  "tauri",
  "tauri-build",
 ]
@@ -1542,7 +1548,14 @@ dependencies = [
 name = "inkwell-native-host"
 version = "0.1.0"
 dependencies = [
+ "base64 0.22.1",
  "inkwell-deployment-config",
+ "inkwell-protocol",
+ "inkwell-request-validation",
+ "serde",
+ "serde_json",
+ "sha2",
+ "thiserror 2.0.20",
 ]
 
 [[package]]
@@ -1561,8 +1574,12 @@ dependencies = [
 name = "inkwell-request-validation"
 version = "0.1.0"
 dependencies = [
+ "base64 0.22.1",
  "inkwell-protocol",
+ "sha2",
  "thiserror 2.0.20",
+ "url",
+ "uuid",
 ]
 
 [[package]]

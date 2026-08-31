@@ -13,3 +13,8 @@ the connection remains available.
 
 No implementation may write diagnostics, panic text, progress output, or child
 process output to the native host's standard output.
+
+M1 proves the protocol-to-UI boundary with an in-process adapter and temporary
+metadata-only Tauri state. The standalone native host returns `IPC_FAILED` when
+that adapter is unavailable. Authenticated communication with a separately
+running desktop process and process activation are M2 work.

@@ -33,6 +33,11 @@ button:hover {
   background: #483e33;
 }
 
+button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
 button:focus-visible {
   outline: 3px solid #b3633b;
   outline-offset: 3px;
@@ -97,6 +102,115 @@ h1 {
     sans-serif;
 }
 
+.request-screen {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 72%,
+      rgb(150 63 43 / 7%) 72% 72.2%,
+      transparent 72.2%
+    ),
+    #efe9df;
+}
+
+.request-header,
+.request-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.request-header .product-name {
+  margin: 0;
+}
+
+.request-step,
+.request-actions p,
+.eyebrow,
+.origin-label,
+.origin-value,
+.origin-note {
+  font-family: system-ui, sans-serif;
+}
+
+.request-step,
+.eyebrow,
+.origin-label {
+  color: #765e48;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.request-card {
+  display: grid;
+  width: min(54rem, 100%);
+  margin: auto;
+  grid-template-columns: auto 1fr;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  padding: clamp(2rem, 7vw, 5rem);
+  border-top: 1px solid #963f2b;
+  border-bottom: 1px solid #c9bda9;
+  background: #fffaf1;
+  box-shadow: 0 24px 60px rgb(58 44 29 / 12%);
+}
+
+.request-marker {
+  color: #963f2b;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.request-card h1 {
+  overflow-wrap: anywhere;
+}
+
+.origin-label {
+  margin: 2.25rem 0 0.5rem;
+}
+
+.origin-value {
+  margin: 0;
+  color: #211d18;
+  font-size: 1.125rem;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+.origin-note {
+  max-width: 34rem;
+  margin: 0.6rem 0 0;
+  color: #61584e;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.request-actions {
+  position: relative;
+  padding-top: 1.5rem;
+}
+
+.request-actions > p:first-child {
+  max-width: 31rem;
+  margin: 0;
+  color: #61584e;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.action-error {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.75rem);
+  color: #963f2b;
+}
+
 @media (max-width: 480px) {
   .waiting-screen {
     padding: 1rem;
@@ -104,5 +218,19 @@ h1 {
 
   .waiting-card {
     padding: 2.5rem 1.5rem;
+  }
+
+  .request-screen {
+    padding: 1rem;
+  }
+
+  .request-card {
+    grid-template-columns: 1fr;
+    padding: 2rem 1.5rem;
+  }
+
+  .request-actions {
+    align-items: stretch;
+    flex-direction: column;
   }
 }

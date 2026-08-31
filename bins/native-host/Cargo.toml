@@ -8,6 +8,15 @@ rust-version.workspace = true
 
 [dependencies]
 inkwell-deployment-config = { path = "../../crates/deployment-config" }
+inkwell-protocol = { path = "../../crates/protocol" }
+inkwell-request-validation = { path = "../../crates/request-validation" }
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+base64.workspace = true
+sha2.workspace = true
 
 [lints]
 workspace = true

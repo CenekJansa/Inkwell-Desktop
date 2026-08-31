@@ -15,7 +15,15 @@ tauri-build = { version = "2.4", features = [] }
 
 [dependencies]
 inkwell-deployment-config = { path = "../../../crates/deployment-config" }
+inkwell-protocol = { path = "../../../crates/protocol" }
+serde.workspace = true
 tauri = { version = "2.8", features = [] }
+
+[dev-dependencies]
+base64.workspace = true
+inkwell-native-host = { path = "../../../bins/native-host" }
+serde_json.workspace = true
+sha2.workspace = true
 
 [lints]
 workspace = true

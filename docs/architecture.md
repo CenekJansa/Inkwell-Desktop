@@ -48,3 +48,11 @@ is recorded once and is never persisted for later delivery.
 
 Choices involving Windows APIs, ASN.1/CMS libraries, and the exact PDFium
 distribution must pass a focused proof of concept before feature implementation.
+
+## M1 walking skeleton
+
+The protocol-to-UI cancellation path is exercised in process through a narrow
+adapter that transfers only request ID, website origin, and document name to
+temporary Tauri state. The Vue UI reads that metadata and can consume the
+request with one cancellation. This harness is test infrastructure, not the
+host-to-desktop transport; authenticated cross-process IPC remains M2.1.
