@@ -8,6 +8,7 @@ rust-version.workspace = true
 
 [dependencies]
 inkwell-deployment-config = { path = "../../crates/deployment-config" }
+inkwell-local-ipc = { path = "../../crates/local-ipc" }
 inkwell-protocol = { path = "../../crates/protocol" }
 inkwell-request-validation = { path = "../../crates/request-validation" }
 serde.workspace = true

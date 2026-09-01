@@ -57,6 +57,25 @@ impl ValidatedRequest {
     pub fn byte_range_content(&self) -> &[u8] {
         &self.byte_range_content
     }
+
+    #[must_use]
+    pub fn into_parts(self) -> ValidatedRequestParts {
+        ValidatedRequestParts {
+            request_id: self.request_id,
+            website_origin: self.website_origin,
+            document_name: self.document_name,
+            preview_pdf: self.preview_pdf,
+            byte_range_content: self.byte_range_content,
+        }
+    }
+}
+
+pub struct ValidatedRequestParts {
+    pub request_id: String,
+    pub website_origin: String,
+    pub document_name: String,
+    pub preview_pdf: Vec<u8>,
+    pub byte_range_content: Vec<u8>,
 }
 
 #[derive(Clone, Copy, Debug, Eq, Error, PartialEq)]

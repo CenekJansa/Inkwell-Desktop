@@ -14,10 +14,14 @@ crate-type = ["lib", "cdylib", "staticlib"]
 tauri-build = { version = "2.4", features = [] }
 
 [dependencies]
+inkwell-app-core = { path = "../../../crates/app-core" }
 inkwell-deployment-config = { path = "../../../crates/deployment-config" }
+inkwell-local-ipc = { path = "../../../crates/local-ipc" }
 inkwell-protocol = { path = "../../../crates/protocol" }
 serde.workspace = true
 tauri = { version = "2.8", features = [] }
+tauri-plugin-single-instance = "2.3"
+zeroize.workspace = true
 
 [dev-dependencies]
 base64.workspace = true

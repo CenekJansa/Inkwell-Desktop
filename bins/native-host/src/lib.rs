@@ -12,9 +12,7 @@ use std::{
 pub use framing::{
     FrameError, MAX_REQUEST_FRAME_BYTES, MAX_RESPONSE_FRAME_BYTES, read_frame, write_frame,
 };
-use inkwell_protocol::{
-    CancellationReason, ErrorCode, SignCancelled, SignError, SignRequest, TerminalResponse,
-};
+use inkwell_protocol::{ErrorCode, SignError, SignRequest, TerminalResponse};
 use inkwell_request_validation::{
     ValidatedRequest, ValidationError, is_valid_request_id, validate_request,
 };
@@ -28,28 +26,21 @@ struct EnvelopeMetadata<'a> {
     request_id: Option<Cow<'a, str>>,
 }
 
-#[derive(Clone, Copy)]
-pub struct DisplayRequest<'a> {
-    pub request_id: &'a str,
-    pub website_origin: &'a str,
-    pub document_name: &'a str,
-}
-
 #[derive(Clone, Copy, Debug, Error)]
 #[error("the desktop UI is unavailable")]
 pub struct UiUnavailable;
 
 pub trait UiAdapter {
-    /// Displays safe request metadata and waits for explicit cancellation.
+    /// Transfers a validated request and waits for one terminal outcome.
     ///
     /// # Errors
     ///
     /// Returns `UiUnavailable` when the temporary or production UI channel is
     /// not available.
-    fn display_and_cancel(
+    fn handle_request(
         &mut self,
-        request: DisplayRequest<'_>,
-    ) -> Result<CancellationReason, UiUnavailable>;
+        request: ValidatedRequest,
+    ) -> Result<TerminalResponse, UiUnavailable>;
 }
 
 #[derive(Debug, Error)]
@@ -102,6 +93,7 @@ pub fn serve_one<R: Read, W: Write, U: UiAdapter>(
         }
         Err(error @ FrameError::Io(_)) => return Err(error.into()),
     };
+    drop(reader);
 
     let metadata: EnvelopeMetadata<'_> = match serde_json::from_slice(&body) {
         Ok(metadata) => metadata,
@@ -161,25 +153,19 @@ pub fn serve_one<R: Read, W: Write, U: UiAdapter>(
         }
     };
 
-    let response = handle_validated_request(ui, &validated);
+    let response = handle_validated_request(ui, validated);
     write_terminal(&mut writer, &response)
 }
 
 fn handle_validated_request<U: UiAdapter>(
     ui: &mut U,
-    request: &ValidatedRequest,
+    request: ValidatedRequest,
 ) -> TerminalResponse {
-    let display = DisplayRequest {
-        request_id: request.request_id(),
-        website_origin: request.website_origin(),
-        document_name: request.document_name(),
-    };
-    match ui.display_and_cancel(display) {
-        Ok(reason) => {
-            TerminalResponse::Cancelled(SignCancelled::new(request.request_id().to_owned(), reason))
-        }
+    let request_id = request.request_id().to_owned();
+    match ui.handle_request(request) {
+        Ok(response) => response,
         Err(UiUnavailable) => TerminalResponse::Error(protocol_error(
-            Some(request.request_id().to_owned()),
+            Some(request_id),
             ErrorCode::IpcFailed,
             "The desktop user interface is unavailable.",
         )),
@@ -215,7 +201,7 @@ mod tests {
     use std::io::Cursor;
 
     use base64::Engine as _;
-    use inkwell_protocol::CancellationReason;
+    use inkwell_protocol::{CancellationReason, SignCancelled};
     use serde_json::{Value, json};
     use sha2::{Digest, Sha256};
 
@@ -226,14 +212,17 @@ mod tests {
     }
 
     impl UiAdapter for CancellingUi {
-        fn display_and_cancel(
+        fn handle_request(
             &mut self,
-            request: DisplayRequest<'_>,
-        ) -> Result<CancellationReason, UiUnavailable> {
-            assert_eq!(request.website_origin, "https://example.com");
-            assert_eq!(request.document_name, "contract.pdf");
+            request: ValidatedRequest,
+        ) -> Result<TerminalResponse, UiUnavailable> {
+            assert_eq!(request.website_origin(), "https://example.com");
+            assert_eq!(request.document_name(), "contract.pdf");
             self.displayed = true;
-            Ok(CancellationReason::UserCancelled)
+            Ok(TerminalResponse::Cancelled(SignCancelled::new(
+                request.request_id().to_owned(),
+                CancellationReason::UserCancelled,
+            )))
         }
     }
 

@@ -38,13 +38,13 @@ a structured terminal response without PDF rendering or signing.
 
 ## M2: Secure IPC and lifecycle
 
-| ID | Depends on | Work item | Completion criteria |
-| --- | --- | --- | --- |
-| M2.1 | M0.4 | Implement current-user IPC | Host and app exchange authenticated framed data through a named pipe restricted to the current Windows user; no secret is passed on the command line. |
-| M2.2 | M2.1 | Implement single-instance activation | Direct launch shows waiting guidance; host launch starts or activates one existing UI instance. |
-| M2.3 | M1.1 | Implement request state machine | Legal states, one active request, `BUSY`, and exactly-once terminal transitions are unit tested outside Tauri. |
-| M2.4 | M2.3 | Implement cancellation and timeout | User cancel, window close, 15-minute timeout, and pre-signing disconnect clear data and return the correct outcome when possible. |
-| M2.5 | M2.1, M2.3 | Implement host disconnect propagation | Chrome disconnect causes the host to notify the app, cancel unsigned work, clear memory, and exit without persisting results. |
+| ID | Status | Depends on | Work item | Completion criteria |
+| --- | --- | --- | --- | --- |
+| M2.1 | Complete | M0.4 | Implement current-user IPC | Host and app exchange authenticated framed data through a named pipe restricted to the current Windows user; no secret is passed on the command line. |
+| M2.2 | Complete | M2.1 | Implement single-instance activation | Direct launch shows waiting guidance; host launch starts or activates one existing UI instance. |
+| M2.3 | Complete | M1.1 | Implement request state machine | Legal states, one active request, `BUSY`, and exactly-once terminal transitions are unit tested outside Tauri. |
+| M2.4 | Complete | M2.3 | Implement cancellation and timeout | User cancel, window close, 15-minute timeout, and pre-signing disconnect clear data and return the correct outcome when possible. |
+| M2.5 | Complete | M2.1, M2.3 | Implement host disconnect propagation | Chrome disconnect causes the host to notify the app, cancel unsigned work, clear memory, and exit without persisting results. |
 
 Milestone exit: lifecycle behavior is complete with mock document and signing
 adapters, including busy, timeout, disconnect, and direct-launch behavior.

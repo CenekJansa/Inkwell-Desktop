@@ -33,10 +33,11 @@ libraries; shared crates do not depend on Tauri.
 
 ## Request lifecycle
 
-The application state machine will support `idle`, `validating`, `reviewing`,
-`discovering`, `confirming`, `signing`, `responding`, and `terminal`. Only the
-state machine may claim or release the active-request slot. A terminal outcome
-is recorded once and is never persisted for later delivery.
+The platform-independent state machine supports `reviewing`, `discovering`,
+`confirming`, `signing`, and `responding`, with absence of an active token
+representing idle. Only the state machine may claim or release the active slot.
+Terminal methods consume the matching token, clear request-owned buffers, and
+return the outcome to the caller without retaining it for retry.
 
 ## Initial technical choices
 
@@ -49,10 +50,18 @@ is recorded once and is never persisted for later delivery.
 Choices involving Windows APIs, ASN.1/CMS libraries, and the exact PDFium
 distribution must pass a focused proof of concept before feature implementation.
 
-## M1 walking skeleton
+## Host-to-desktop lifecycle
 
-The protocol-to-UI cancellation path is exercised in process through a narrow
-adapter that transfers only request ID, website origin, and document name to
-temporary Tauri state. The Vue UI reads that metadata and can consume the
-request with one cancellation. This harness is test infrastructure, not the
-host-to-desktop transport; authenticated cross-process IPC remains M2.1.
+The native host validates and decodes requests before transferring compact raw
+buffers over authenticated, sequenced frames. On Windows the transport is a
+named pipe with a protected DACL granting access only to SYSTEM and the current
+owner; an ephemeral session key is exchanged inside that pipe and never through
+process arguments. The desktop accepts connections concurrently but its shared
+state machine rejects a second active request with `BUSY`.
+
+The host starts the desktop without request data or secrets in its arguments.
+Tauri's single-instance plugin activates the existing main window, and an IPC
+event transitions a directly launched waiting screen to the incoming request.
+Chrome EOF races with the terminal desktop response; EOF sends an authenticated
+disconnect command, clears unsigned work, and does not retain the generated
+disconnect outcome.
