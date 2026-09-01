@@ -10,6 +10,9 @@ coverage/
 *.tsbuildinfo
 apps/desktop/src-tauri/gen/schemas/
 
+# Prepared third-party runtime artifacts (provenance manifests remain tracked)
+third_party/pdfium/artifacts/
+
 # Local configuration and secrets
 .env
 .env.*

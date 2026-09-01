@@ -4,7 +4,10 @@ mod ipc_server;
 mod walking_skeleton;
 
 use tauri::Manager as _;
-use walking_skeleton::{WalkingSkeletonState, cancel_signing_request, pending_signing_request};
+use walking_skeleton::{
+    WalkingSkeletonState, cancel_signing_request, continue_signing_request, pdf_review_state,
+    render_pdf_review_page,
+};
 
 /// Starts the Inkwell desktop application.
 ///
@@ -31,14 +34,16 @@ pub fn run() {
         })
         .on_window_event(|window, event| {
             if matches!(event, tauri::WindowEvent::CloseRequested { .. }) {
-                window
-                    .app_handle()
-                    .state::<WalkingSkeletonState>()
-                    .close_active_window();
+                let state = window.app_handle().state::<WalkingSkeletonState>();
+                if let Some(request_id) = state.close_active_window() {
+                    ipc_server::emit_request_invalidated(window.app_handle(), &request_id);
+                }
             }
         })
         .invoke_handler(tauri::generate_handler![
-            pending_signing_request,
+            pdf_review_state,
+            render_pdf_review_page,
+            continue_signing_request,
             cancel_signing_request
         ])
         .run(tauri::generate_context!())

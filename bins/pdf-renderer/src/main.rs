@@ -1,6 +1,19 @@
-//! Isolated `PDFium` rendering sidecar entry point.
-//!
-//! The renderer will accept private framed messages over captured standard
-//! input and output. It must never access the network or open PDF actions.
+//! Isolated PDF rendering sidecar entry point.
 
-fn main() {}
+use std::process::ExitCode;
+
+use inkwell_pdf_renderer::{DistributionEngine, serve};
+
+fn main() -> ExitCode {
+    let stdin = std::io::stdin();
+    let stdout = std::io::stdout();
+    let result = serve(&mut stdin.lock(), &mut stdout.lock(), DistributionEngine);
+
+    if result.is_ok() {
+        ExitCode::SUCCESS
+    } else {
+        // Diagnostics are intentionally omitted: stdout is protocol-only and
+        // protocol failures may contain sensitive document context.
+        ExitCode::FAILURE
+    }
+}

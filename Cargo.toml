@@ -8,6 +8,7 @@ members = [
   "crates/deployment-config",
   "crates/local-ipc",
   "crates/protocol",
+  "crates/renderer-protocol",
   "crates/request-validation",
   "crates/safe-logging",
   "crates/windows-certificates",

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "platform": "windows-x64",
+  "archiveFormat": "TODO",
+  "version": "TODO",
+  "downloadUrl": "TODO",
+  "sha256": "TODO",
+  "attestation": {
+    "type": "TODO",
+    "url": "TODO"
+  },
+  "license": {
+    "spdx": "TODO",
+    "url": "TODO"
+  },
+  "archiveFiles": {
+    "pdfiumDll": "TODO",
+    "pdfiumImportLibrary": "TODO",
+    "headersDirectory": "TODO"
+  }
+}

@@ -64,6 +64,24 @@ certificate discovery, provider-backed signing, and installer acceptance must
 be developed and verified on Windows 11 x64. Platform-independent protocol,
 state-machine, CMS structure, and frontend tests should remain runnable in CI.
 
+## PDFium configuration
+
+The native PDFium distribution has not been selected. Its reviewed version,
+HTTPS source, SHA-256 digest, attestation, license, and archive layout must be
+entered in `third_party/pdfium/provenance.json`. Until every TODO is replaced,
+`scripts/prepare-pdfium.ps1` exits before downloading anything and the renderer
+fails closed instead of displaying an unvalidated preview.
+
+Once configured, prepare the ignored build artifacts on Windows with:
+
+```powershell
+pwsh -NoProfile -NonInteractive -File scripts/prepare-pdfium.ps1
+```
+
+Selecting and staging a distribution does not complete M3.1 by itself. A
+Windows 11 x64 run must still prove packaged loading from the intended path,
+in-memory rendering, and absence of document temporary files and network access.
+
 ## Definition of done
 
 Every backlog item must include automated tests where practical, update the

@@ -1,0 +1,16 @@
+[package]
+name = "inkwell-renderer-protocol"
+description = "Bounded private protocol for the isolated PDF renderer"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+postcard = { version = "1.1", features = ["alloc"] }
+serde.workspace = true
+thiserror.workspace = true
+zeroize.workspace = true
+
+[lints]
+workspace = true

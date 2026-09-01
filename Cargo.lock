@@ -1878,6 +1878,9 @@ dependencies = [
 [[package]]
 name = "inkwell-pdf-renderer"
 version = "0.1.0"
+dependencies = [
+ "inkwell-renderer-protocol",
+]
 
 [[package]]
 name = "inkwell-protocol"
@@ -1885,6 +1888,16 @@ version = "0.1.0"
 dependencies = [
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "inkwell-renderer-protocol"
+version = "0.1.0"
+dependencies = [
+ "postcard",
+ "serde",
+ "thiserror 2.0.20",
+ "zeroize",
 ]
 
 [[package]]

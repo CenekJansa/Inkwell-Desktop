@@ -51,13 +51,13 @@ adapters, including busy, timeout, disconnect, and direct-launch behavior.
 
 ## M3: Static PDF preview
 
-| ID | Depends on | Work item | Completion criteria |
-| --- | --- | --- | --- |
-| M3.1 | M0 | Prove PDFium sidecar packaging | A pinned PDFium distribution loads from a packaged sidecar on Windows x64 and renders an in-memory sample without network or temporary files. |
-| M3.2 | M3.1 | Define private renderer protocol | Bounded framed messages support document open, page metadata, page render, close, and structured renderer errors. |
-| M3.3 | M3.2 | Validate PDFs | Malformed and encrypted PDFs produce `PDF_INVALID` and `PDF_ENCRYPTED`; render failures produce `PDF_RENDER_FAILED`. |
-| M3.4 | M3.2 | Render static pages | PDF pages become raster images; scripts, links, forms, attachments, actions, and external resources are never executed or opened. |
-| M3.5 | M3.3, M3.4 | Build review interface | Complete-document scrolling, navigation, zoom, loading, and render-failure states work; progression remains disabled until validation succeeds. |
+| ID | Status | Depends on | Work item | Completion criteria |
+| --- | --- | --- | --- | --- |
+| M3.1 | Blocked | M0 | Prove PDFium sidecar packaging | A pinned PDFium distribution loads from a packaged sidecar on Windows x64 and renders an in-memory sample without network or temporary files. The distribution provenance fields in `third_party/pdfium/provenance.json` remain an explicit TODO. |
+| M3.2 | Complete | M3.1 | Define private renderer protocol | Bounded framed messages support document open, page metadata, page render, close, and structured renderer errors. |
+| M3.3 | Blocked | M3.2 | Validate PDFs | Malformed and encrypted PDFs produce `PDF_INVALID` and `PDF_ENCRYPTED`; render failures produce `PDF_RENDER_FAILED`. Protocol mappings and test adapters exist, but the production PDFium backend is blocked by M3.1. |
+| M3.4 | Blocked | M3.2 | Render static pages | PDF pages become raster images; scripts, links, forms, attachments, actions, and external resources are never executed or opened. The sidecar fails closed until M3.1 supplies the reviewed PDFium backend. |
+| M3.5 | Foundation | M3.3, M3.4 | Build review interface | Complete-document scrolling, navigation, zoom, loading, and render-failure states work; progression remains disabled until validation succeeds. Component and backend-gating tests exist, but production rendering remains blocked by M3.1. |
 
 Milestone exit: a valid request can be reviewed as static page images and an
 invalid, encrypted, or unrenderable preview cannot proceed.

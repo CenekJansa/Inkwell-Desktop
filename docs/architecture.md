@@ -22,6 +22,7 @@ channels.
 | `inkwell-request-validation` | Bounded decoding and integrity checks | UI or signing |
 | `inkwell-app-core` | State transitions and terminal outcomes | Tauri or Windows APIs |
 | `inkwell-local-ipc` | Authenticated current-user IPC | Native messaging framing |
+| `inkwell-renderer-protocol` | Versioned bounded sidecar messages and framing | PDF parsing or Tauri APIs |
 | `inkwell-windows-certificates` | Store discovery and provider operations | CMS encoding or UI |
 | `inkwell-cms-signing` | Deterministic DER CMS construction | Private-key ownership |
 | `inkwell-deployment-config` | Validated build-time host and extension identity | Registration or credentials |
@@ -47,8 +48,25 @@ return the outcome to the caller without retaining it for retry.
 - PDFium in an isolated sidecar for static page rasterization.
 - Tauri NSIS packaging for the initial per-user Windows installer.
 
-Choices involving Windows APIs, ASN.1/CMS libraries, and the exact PDFium
-distribution must pass a focused proof of concept before feature implementation.
+Choices involving Windows APIs and ASN.1/CMS libraries must pass focused proofs
+of concept. The PDFium distribution is intentionally unresolved: its version,
+download URL, digest, attestation, and license remain TODO values in
+`third_party/pdfium/provenance.json`.
+
+## PDF review boundary
+
+The renderer sidecar implements a strict single-document state machine over
+captured stdin and stdout. Little-endian Postcard frames are independently
+bounded for commands and raster responses; document, page-count, dimension,
+pixel, and message limits are checked before use. Frame copies, document bytes,
+and raster buffers are zeroized when released. Sidecar stdout is protocol-only.
+
+The production renderer currently fails closed because no PDFium distribution
+has been approved. The desktop exposes that state as a failed review, retains no
+interactive PDF surface in the WebView, and refuses progression unless its Rust
+state reports a successfully validated static review. Tests use an injected
+renderer adapter; they are not evidence that real PDFs have been validated or
+rendered.
 
 ## Host-to-desktop lifecycle
 
